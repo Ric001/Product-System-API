@@ -1,38 +1,20 @@
 'use strict'
 
 const express = require('express')
-const mongoose = require('mongoose')
+
+const bodyParser = require('body-parser')
+const log4js = require('log4js')
+const bookController = require('./controllers/book-controller')
+
+const Book =  require('./models/book')
 const app = express()
-
-//app.use(express.static('public'))
 const staticFilesRoute = __dirname + '/public'
+const api = require('./routes/routes')
 
-app.use('/files', express.static(staticFilesRoute))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use('/api/',api)
 
-app.get('/', (request, response) => {
-    response.send('hello world')
-})
 
-app.post('/', (request, response) => {
-    response.send('Got a POST request')
-})
+module.exports = app
 
-app.put('/user', (request, response) => {
-    response.send('Got a Put request at /user')
-})
-
-app.delete('/user', (request, response) => {
-    response.send('Got a DELETE request at /user')
-})
-
-app.all('/secret', (request, response) => {
-    console.log('Accessing the secret section...')
-    next()
-})
-
-app.listen(3000, (error) => {
-    if (error)
-        throw new Error()
-   // mongoose.connect('', {useNewUrlParser: true})
-    console.log('====> Running at Port ===> ' + 3000)
-})
