@@ -5,6 +5,7 @@ const logger = require('log4js').getLogger()
 logger.level = 'info'
 
 function bookById (req, res) {
+    logger.info('[GET <bookById> : Book]')
     if (nonNull(req) && nonNull(res)) {
         let productId = req.params.productId
         BookModel.findById(productId, (err, product) => {
@@ -16,6 +17,7 @@ function bookById (req, res) {
 }
 
 function toListBooks(req, res) {
+    logger.info('[ENTERING GET <toListBooks> : Book[*] ]')
     if (nonNull(req) && nonNull(res)) {
         BookModel.find({}, (err, products) => {
             if (err) return res.status(500).send({message: 'Error Listing the products: ' + products})
@@ -26,7 +28,7 @@ function toListBooks(req, res) {
 }
 
 function create(req, res) {
-    logger.info('[ENTERING void create(req, res)]')
+    logger.info('[ENTERING POST <create> : Book]')
     if (nonNull(req) && nonNull(res)) {
         const book = new BookModel()
         book.name = req.body.name 
@@ -41,7 +43,7 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    logger.info('[ENTERING void update(req, res)]')
+    logger.info('[ENTERING PUT <update> : Book]')
     if (nonNull(req) && nonNull(res)) {
         let productId = req.params.productId 
         let update = req.body 
@@ -53,7 +55,7 @@ function update(req, res) {
 }
 
 function remove(req, res) {
-    logger.info('[ENTERING void remove(req, res)]')
+    logger.info('[ENTERING DELETE <remove> : Book]')
     let bookId = req.params.productId
     if (nonNull(req) && nonNull(res)) {
         BookModel.findById(bookId, (err, neededBook) => {

@@ -4,11 +4,11 @@ const express = require('express')
 const bookCTLR = require('../controllers/book-controller')
 const api = express.Router()
 
-api.get('/product', bookCTLR.toListBooks)
+api.get('/product/', bookCTLR.toListBooks)
 
 api.get('/product/:productId', bookCTLR.bookById)
 
-api.post('/product', bookCTLR.create)
+api.post('/product/', bookCTLR.create)
 
 api.put('/product/:productId', bookCTLR.update)
 
