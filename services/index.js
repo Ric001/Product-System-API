@@ -18,7 +18,27 @@ function createToken(user) {
 }
 
 function decodeToken(token) {
+    logger.info('[ENTERING decodeToken(token)-> Promise]')
     return new Promise((resolve, reject) => {
-        const payload = jwt.decode(token, con)
-    })    
+        const payload = jwt.decode(token, config.secret)
+        if (payload.exp <= moment().unix()) {
+            reject({
+                status: 401,
+                message: 'Token Expired'
+            })
+
+            resolve({
+                status: 200,
+                message: 'The Token is Valid',
+                user_id: payload.sub
+            })
+        }
+    })
+}
+
+
+
+module.exports = {
+    createToken,
+    decodeToken
 }
