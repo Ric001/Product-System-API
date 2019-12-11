@@ -68,6 +68,17 @@ function remove(req, res) {
     }
 }
 
+function removeAll(req, res) {
+    logger.info('[ENTERING <DELTE> removeAll(req, res)]')
+    if (nonNull(req) && nonNull(res)) {
+        BookModel.deleteMany({}, err => {
+            if (err) return res.status(500).send({ message: `${err}`})
+
+            return res.status(200).send({message: 'DB DROPPED DOWN Successfully'})
+        })
+    }
+}
+
 function nonNull(obj) {
     return (obj != null)
 }
@@ -77,5 +88,6 @@ module.exports = {
     toListBooks,
     create,
     update,
-    remove
+    remove,
+    removeAll
 }

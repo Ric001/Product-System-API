@@ -6,22 +6,20 @@ const userCTRL = require('../controllers/user-controller')
 const auth = require('../middlewares/index')
 const api = express.Router()
  
-api.get('/product/', auth,bookCTLR.toListBooks)
+api.get('/product/', auth, bookCTLR.toListBooks)
 
-api.get('/product/:productId', auth,bookCTLR.bookById)
+api.get('/product/:productId', auth, bookCTLR.bookById)
 
-api.post('/product/', auth,bookCTLR.create)
+api.post('/product/', auth, bookCTLR.create)
 
-api.put('/product/:productId', auth,bookCTLR.update)
+api.put('/product/:productId', auth, bookCTLR.update)
 
-api.delete('/product/:productId', auth,bookCTLR.remove)
+api.delete('/product/:productId', auth, bookCTLR.remove)
 
-api.post('/signup', userCTRL.signUp)
+api.delete('/product/', auth, bookCTLR.removeAll)
 
-api.post('/signin', userCTRL.signIn)
+api.post('/signup/', userCTRL.signUp)
 
-api.get('/private', auth, (req, res) => {
-    res.status(200).send({ message: 'You Got Access' })
-})
+api.post('/signin/', userCTRL.signIn)
 
 module.exports = api

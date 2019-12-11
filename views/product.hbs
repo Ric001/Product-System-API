@@ -1,0 +1,45 @@
+<script>
+    const myHeaders = new Headers()
+    let bookList = document.createElement('ul')
+
+    myHeaders.append('authorization', `Bearer ${localStorage.token}`)
+
+    fetch('/api/v1/product', {
+        method: 'GET',
+        headers: myHeaders
+    })
+        .then(res => res.json())
+        .then(data => {
+            data.products.map(book => {
+                if (book !== null) {
+                    const mappedBook = bookMap(book)
+                    bookList.appendChild(mappedBook.name)
+                    bookList.appendChild(mappedBook.author)
+                    bookList.appendChild(mappedBook.price)
+                }
+            })
+            document.body.appendChild(bookList)
+        })
+
+    function bookMap(book) {
+        if (book !== null) {
+            let name = document.createElement('li')
+            let author = document.createElement('li')
+            let price = document.createElement('li')
+
+            name.appendChild(document.createTextNode(book.name))
+            author.appendChild(document.createTextNode(book.author))
+            price.appendChild(document.createTextNode(book.price))
+
+            const data = {}
+            data.name = name
+            data.author = author
+            data.price = price
+
+            return data
+        }
+    }
+
+
+
+</script>
